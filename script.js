@@ -8,3 +8,37 @@
 // Una vez hayáis añadido todas las instancias al array de usuarios, ejecutad el método "showMeTheMoney" del tercer usuario "Roberto".
 
 const users = [];
+
+//clase user
+class User {
+  constructor(name, money, showMeTheMoneyFunc) {
+    this.name = name;
+    this.money = money;
+    this.showMeTheMoney = showMeTheMoneyFunc;
+  }
+}
+//funcion que saca los datos de json y los inserta en el array de User[]
+function sacaDatos() {
+  fetch("./users.json")
+    .then(response => response.json())
+    .then(data => sacaUsuarios(data));
+}
+//mustra el dinero del
+function sacaUsuarios(data) {
+  rellenaUsers(data);
+  users[2].showMeTheMoney();
+}
+//rellena el arry
+function rellenaUsers(data) {
+  data.forEach(
+    user =>
+      function() {
+        const us = new User(user.name, user.money, showMeTheMoneyFunc);
+        users.push(us);
+      }
+  );
+}
+
+function showMeTheMoneyFunc() {
+  alert(this.money);
+}
