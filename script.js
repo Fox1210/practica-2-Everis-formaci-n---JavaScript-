@@ -17,27 +17,15 @@ class User {
     this.showMeTheMoney = showMeTheMoneyFunc;
   }
 }
-//funcion que saca los datos de json y los inserta en el array de User[]
-function sacaDatos() {
-  fetch("./users.json")
-    .then(response => response.json())
-    .then(data => sacaUsuarios(data));
-}
-//mustra el dinero del
-function sacaUsuarios(data) {
-  rellenaUsers(data);
-  users[2].showMeTheMoney();
-}
-//rellena el arry
-function rellenaUsers(data) {
-  data.forEach(
-    user =>
-      function() {
-        const us = new User(user.name, user.money, showMeTheMoneyFunc);
-        users.push(us);
-      }
-  );
-}
+fetch("./users.json")
+  .then(response => response.json())
+  .then(data => {
+    data.forEach(user => {
+      const us = new User(user.name, user.money, showMeTheMoneyFunc);
+      users.push(us);
+    });
+    users[2].showMeTheMoney();
+  });
 
 function showMeTheMoneyFunc() {
   alert(this.money);
